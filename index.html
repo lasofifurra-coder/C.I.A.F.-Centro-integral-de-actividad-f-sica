@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.I.A.F. - Centro Integral de Actividad Física</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Montserrat (Sporty/Clean) & Cinzel (Elegante) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        body: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        ciaf: {
+                            purple: '#8E3B95', /* Violeta oficial del loto de la imagen */
+                            green: '#5B9D34',  /* Verde oficial de las hojas de la imagen */
+                            orange: '#F38E22', /* Naranja de los pétalos exteriores de la imagen */
+                            blue: '#1d4ed8',   /* Azul deportivo */
+                            red: '#b91c1c',    /* Rojo marcial */
+                            dark: '#0f172a',   /* Gris pizarra profundo */
+                            light: '#f8fafc',  /* Gris ultra suave */
+                            silver: '#e2e8f0'  /* Gris plata metálico */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8E3B95;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5B9D34;
+        }
+        
+        .glow-hover:hover {
+            box-shadow: 0 10px 30px -10px rgba(142, 59, 149, 0.3);
+        }
+    </style>
+</head>
+<body class="font-body bg-slate-50 text-slate-800 antialiased overflow-x-hidden">
+
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm" id="main-header">
+        <div class="max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto flex items-center justify-between h-20 sm:h-24">
+            
+            <!-- Logo C.I.A.F. referencing Screenshot_20260625_194053_Maps.jpg -->
+            <a href="#inicio" class="flex items-center gap-3 group">
+                <div class="relative w-14 h-14 flex items-center justify-center rounded-full bg-white shadow-md border border-slate-100 p-0.5 overflow-hidden">
+                    <img src="Screenshot_20260625_194053_Maps.jpg" alt="Logo C.I.A.F. Oficial" class="w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/100x100/ffffff/8E3B95?text=CIAF'">
+                </div>
+                <div>
+                    <span class="font-heading text-xl sm:text-2xl font-black tracking-widest text-slate-900 block leading-none">C.I.A.F.</span>
+                    <span class="text-[8px] sm:text-[9px] uppercase text-slate-500 tracking-[0.12em] block mt-1 font-bold">Centro Integral de Actividad Física</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
+                <a href="#inicio" class="text-xs uppercase tracking-wider font-extrabold text-slate-600 hover:text-ciaf-purple transition-colors">Inicio</a>
+                <a href="#actividades" class="text-xs uppercase tracking-wider font-extrabold text-slate-600 hover:text-ciaf-purple transition-colors">Actividades</a>
+                <a href="#taekwondo" class="text-xs uppercase tracking-wider font-extrabold text-slate-600 hover:text-ciaf-purple transition-colors">Taekwondo WT</a>
+                <a href="#horarios" class="text-xs uppercase tracking-wider font-extrabold text-slate-600 hover:text-ciaf-purple transition-colors">Horarios</a>
+                <a href="#nutricion" class="text-xs uppercase tracking-wider font-extrabold text-slate-600 hover:text-ciaf-purple transition-colors">Nutrición</a>
+                <a href="#contacto" class="text-xs uppercase tracking-wider font-extrabold text-slate-600 hover:text-ciaf-purple transition-colors">Contacto</a>
+            </nav>
+
+            <!-- Action Button & Hamburger Menu -->
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/5491136715365" target="_blank" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-ciaf-purple text-white font-bold text-xs uppercase tracking-widest transition-all shadow-md">
+                    <i class="fa-brands fa-whatsapp text-sm mr-2"></i>Escribinos
+                </a>
+                
+                <button id="mobile-menu-btn" class="lg:hidden text-slate-800 hover:text-ciaf-purple p-2" aria-label="Menú">
+                    <i class="fa-solid fa-bars-staggered text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden flex flex-col justify-center items-center gap-6">
+            <button id="mobile-close-btn" class="absolute top-6 right-6 text-slate-500 hover:text-ciaf-red p-2" aria-label="Cerrar">
+                <i class="fa-solid fa-xmark text-3xl"></i>
+            </button>
+            
+            <a href="#inicio" class="mobile-nav-link text-xl font-bold uppercase tracking-wider text-slate-800 hover:text-ciaf-purple">Inicio</a>
+            <a href="#actividades" class="mobile-nav-link text-xl font-bold uppercase tracking-wider text-slate-800 hover:text-ciaf-purple">Actividades</a>
+            <a href="#taekwondo" class="mobile-nav-link text-xl font-bold uppercase tracking-wider text-slate-800 hover:text-ciaf-purple">Taekwondo WT</a>
+            <a href="#horarios" class="mobile-nav-link text-xl font-bold uppercase tracking-wider text-slate-800 hover:text-ciaf-purple">Horarios</a>
+            <a href="#nutricion" class="mobile-nav-link text-xl font-bold uppercase tracking-wider text-slate-800 hover:text-ciaf-purple">Nutrición</a>
+            <a href="#contacto" class="mobile-nav-link text-xl font-bold uppercase tracking-wider text-slate-800 hover:text-ciaf-purple">Contacto</a>
+            <a href="https://wa.me/5491136715365" target="_blank" class="mobile-nav-link px-8 py-3 rounded-xl bg-ciaf-purple text-white font-bold uppercase tracking-widest text-sm shadow-md mt-4">WhatsApp</a>
+        </div>
+    </header>
+
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden bg-gradient-to-b from-slate-100 via-white to-slate-50">
+        <!-- Abstract Sporty Ornaments in Red and Blue -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-1/4 left-1/10 w-96 h-96 bg-blue-600 rounded-full filter blur-[120px] animate-pulse"></div>
+            <div class="absolute bottom-1/4 right-1/10 w-96 h-96 bg-red-600 rounded-full filter blur-[120px] animate-pulse" style="animation-delay: 2s"></div>
+            <div class="absolute inset-0" style="background-image: linear-gradient(rgba(14, 165, 233, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 165, 233, 0.04) 1px, transparent 1px); background-size: 40px 40px;"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center z-10 flex flex-col items-center">
+            <!-- Sede Address Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-700 mb-6 shadow-sm">
+                <span class="flex h-2.5 w-2.5 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
+                </span>
+                <span class="text-[10px] sm:text-xs uppercase tracking-widest font-extrabold text-slate-600">Boyacá 3167, Villa de Mayo - Sede Oficial C.I.A.F.</span>
+            </div>
+
+            <!-- Big Lotus Logo Graphic referencing 1000021486.jpg -->
+            <div class="relative w-44 h-44 sm:w-56 sm:h-56 mb-8 group">
+                <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-red-600/10 rounded-full filter blur-xl opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative w-full h-full rounded-full bg-white p-3 shadow-lg border border-slate-200/60 overflow-hidden flex items-center justify-center">
+                    <img src="1000021486.jpg" alt="Logo C.I.A.F." class="w-full h-full object-contain rounded-full transform group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/250x250/ffffff/8E3B95?text=C.I.A.F.+Lotus'">
+                </div>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-heading font-black tracking-widest text-slate-900 uppercase leading-none">
+                C.I.A.F.
+            </h1>
+            <h2 class="text-lg sm:text-2xl font-bold uppercase tracking-[0.2em] text-slate-600 mt-2">
+                Centro Integral de Actividad Física
+            </h2>
+
+            <p class="max-w-2xl mx-auto mt-6 text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
+                Un espacio diseñado para tu bienestar y desarrollo físico integral en <span class="font-bold text-slate-800">Boyacá 3167</span>. Desde el rigor técnico del <span class="text-blue-600 font-bold">Taekwondo WT</span> junto a la Academia Mungyeong, hasta la armonía del <span class="text-ciaf-purple font-bold">Yoga</span> y la intensidad del <span class="text-red-600 font-bold">Entrenamiento Funcional</span>.
+            </p>
+
+            <!-- CTA Actions -->
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto font-bold text-xs uppercase tracking-widest">
+                <a href="#contacto" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-red-600 hover:bg-blue-700 text-white transition-all shadow-md hover:shadow-lg hover:scale-[1.02]">
+                    Ver Ubicación y Contacto
+                </a>
+                <a href="#actividades" class="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-slate-300 bg-white text-slate-700 hover:border-slate-800 transition-all shadow-sm">
+                    Ver Actividades
+                </a>
+            </div>
+
+            <!-- Direct Quick Contact Bar based on flyer 1000021482.jpg -->
+            <div class="mt-12 flex flex-col sm:flex-row gap-6 sm:gap-12 text-xs uppercase tracking-wider font-bold text-slate-500 border-t border-slate-200 pt-8 w-full max-w-2xl justify-center">
+                <div class="flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-phone text-slate-800 text-sm"></i>
+                    <span>C.I.A.F: 11 3671 5365</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-instagram text-pink-600 text-sm"></i>
+                    <span>@ciaf_3167_</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-location-dot text-red-600 text-sm"></i>
+                    <span>Boyacá 3167</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-slate-50 to-transparent"></div>
+    </section>
+
+    <section id="actividades" class="py-24 bg-white relative border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs uppercase text-red-600 font-extrabold tracking-widest">Variedad Disciplinaria</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 tracking-wider mt-2">NUESTRAS ACTIVIDADES</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-600 via-slate-400 to-blue-600 mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-500 mt-4 max-w-xl mx-auto text-sm font-medium">
+                    Ofrecemos disciplinas adaptadas para cada objetivo de salud, rendimiento físico y desarrollo mental.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                
+                <!-- Activity 1: Taekwondo WT -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 hover:border-blue-600 transition-all duration-300 group flex flex-col justify-between hover:shadow-lg hover:scale-[1.01]">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-blue-100">
+                            <i class="fa-solid fa-user-ninja text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-2">Taekwondo WT</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-blue-600 font-extrabold mb-3">Arte Marcial Olímpico</p>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium mb-6">
+                            Clases oficiales en alianza con la <span class="font-semibold text-slate-800">Academia Mungyeong</span>. Disciplina, defensa personal y desarrollo físico integral.
+                        </p>
+                    </div>
+                    <a href="#taekwondo" class="text-xs font-bold text-blue-600 uppercase tracking-wider flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Ver Detalles <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Activity 2: Yoga -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 hover:border-purple-600 transition-all duration-300 group flex flex-col justify-between hover:shadow-lg hover:scale-[1.01]">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-purple-100">
+                            <i class="fa-solid fa-spa text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-2">Yoga</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-purple-600 font-extrabold mb-3">Armonía & Flexibilidad</p>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium mb-6">
+                            Encuentra el equilibrio perfecto entre cuerpo y mente. Posturas, respiración y elongación guiada para mejorar tu bienestar diario.
+                        </p>
+                    </div>
+                    <a href="#horarios" class="text-xs font-bold text-purple-600 uppercase tracking-wider flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Ver Horarios <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Activity 3: Funcional Nivel 1 & 2 -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 hover:border-red-600 transition-all duration-300 group flex flex-col justify-between hover:shadow-lg hover:scale-[1.01]">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-red-100">
+                            <i class="fa-solid fa-dumbbell text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-2">Funcional Nivel 1 & 2</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-red-600 font-extrabold mb-3">Acondicionamiento Físico</p>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium mb-6">
+                            Entrenamiento adaptativo para mejorar fuerza, resistencia cardiovascular y agilidad de forma progresiva y dinámica.
+                        </p>
+                    </div>
+                    <a href="#horarios" class="text-xs font-bold text-red-600 uppercase tracking-wider flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Ver Horarios <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Activity 4: Taebo & Aerolocal -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 hover:border-slate-800 transition-all duration-300 group flex flex-col justify-between hover:shadow-lg hover:scale-[1.01]">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-slate-200">
+                            <i class="fa-solid fa-bolt text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-2">Taebo & Aerolocal</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 font-extrabold mb-3">Cardio de Alta Intensidad</p>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium mb-6">
+                            Fusión de técnicas de artes marciales con música para quemar calorías, combinada con resistencia localizada de alta efectividad.
+                        </p>
+                    </div>
+                    <a href="#contacto" class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Consultar Clases <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Activity 5: Defensa Personal -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 hover:border-blue-600 transition-all duration-300 group flex flex-col justify-between hover:shadow-lg hover:scale-[1.01]">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-blue-100">
+                            <i class="fa-solid fa-shield-halved text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-2">Defensa Personal</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-blue-600 font-extrabold mb-3">Tácticas de Seguridad</p>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium mb-6">
+                            Aprende técnicas reales, preventivas y efectivas ante situaciones de riesgo para ganar confianza y autocontrol.
+                        </p>
+                    </div>
+                    <a href="#contacto" class="text-xs font-bold text-blue-600 uppercase tracking-wider flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Consultar Clases <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Activity 6: Acompañamiento Nutricional -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80 hover:border-emerald-600 transition-all duration-300 group flex flex-col justify-between hover:shadow-lg hover:scale-[1.01]">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-emerald-100">
+                            <i class="fa-solid fa-apple-whole text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-2">Scan Corporal</h3>
+                        <p class="text-[10px] uppercase tracking-widest text-emerald-600 font-extrabold mb-3">Control & Nutrición</p>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium mb-6">
+                            Análisis completo de bioimpedancia para entender tu composición corporal (grasa, músculo) y guiar tu alimentación de manera profesional.
+                        </p>
+                    </div>
+                    <a href="#nutricion" class="text-xs font-bold text-emerald-600 uppercase tracking-wider flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Ver Detalles <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="taekwondo" class="py-24 bg-slate-50 border-y border-slate-200 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details Info (Official Flyer details from 1000021484.jpg) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-blue-50 text-blue-600 font-bold text-[10px] uppercase tracking-widest border border-blue-100">
+                        <i class="fa-solid fa-medal"></i> Clases Oficiales WT
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-heading font-black text-slate-900 tracking-wider">TAEKWONDO WT <br><span class="text-blue-600">ACADEMIA MUNGYEONG</span></h2>
+                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
+                        Bajo la dirección técnica oficial de la **Academia Mungyeong**, brindamos formación integral, marcial y olímpica. Contamos con programas diferenciados según el rango de edad para asegurar un desarrollo psicomotriz y deportivo óptimo.
+                    </p>
+
+                    <!-- Schedule exact representation from image 1000021484.jpg -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="p-5 bg-white rounded-xl border border-slate-200 shadow-sm flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100 font-bold text-xs">
+                                5
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase text-red-600 font-extrabold tracking-wider block">Infantiles (5 a 12 Años)</span>
+                                <span class="text-slate-900 font-bold text-sm block mt-1">Lunes, Miércoles y Viernes</span>
+                                <span class="text-slate-500 text-xs font-semibold block">19:00 a 20:00 hs</span>
+                            </div>
+                        </div>
+                        <div class="p-5 bg-white rounded-xl border border-slate-200 shadow-sm flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100 font-bold text-xs">
+                                12
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase text-blue-600 font-extrabold tracking-wider block">Jóvenes & Adultos (12+)</span>
+                                <span class="text-slate-900 font-bold text-sm block mt-1">Lunes, Miércoles y Viernes</span>
+                                <span class="text-slate-500 text-xs font-semibold block">20:00 a 21:30 hs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4 font-bold text-xs uppercase tracking-widest">
+                        <a href="https://wa.me/5491156562843" target="_blank" class="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-blue-600 text-white transition-all shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Consultas TKD: 11 5656-2843
+                        </a>
+                        <a href="https://instagram.com/mungyeong_merlo" target="_blank" class="px-4 py-3.5 rounded-xl border border-slate-300 bg-white hover:border-slate-800 text-slate-700 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-instagram text-lg"></i> @mungyeong_merlo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side: Tenets of Taekwondo WT / Values Card instead of flyer image -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-md max-w-sm w-full space-y-6">
+                        <div class="text-center border-b border-slate-100 pb-4">
+                            <span class="text-[10px] uppercase text-red-600 font-extrabold tracking-widest block mb-1">Filosofía Marcial</span>
+                            <h3 class="text-lg font-heading font-black text-slate-900 tracking-wider">LOS 5 PRINCIPIOS</h3>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700 font-black flex items-center justify-center shrink-0">1</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Cortesía (Ye Ui)</h4>
+                                    <p class="text-[11px] text-slate-500 font-medium">Fomentar el respeto mutuo, la humildad y la buena convivencia.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700 font-black flex items-center justify-center shrink-0">2</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Integridad (Yom Chi)</h4>
+                                    <p class="text-[11px] text-slate-500 font-medium">Saber definir lo correcto y actuar siempre con honestidad.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700 font-black flex items-center justify-center shrink-0">3</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Perseverancia (In Nae)</h4>
+                                    <p class="text-[11px] text-slate-500 font-medium">No rendirse ante los obstáculos; la constancia lleva al éxito.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700 font-black flex items-center justify-center shrink-0">4</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Autocontrol (Guk Gi)</h4>
+                                    <p class="text-[11px] text-slate-500 font-medium">Dominar las acciones, impulsos y emociones tanto dentro como fuera del tatami.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700 font-black flex items-center justify-center shrink-0">5</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Espíritu Indomable (Baekjul Boolgool)</h4>
+                                    <p class="text-[11px] text-slate-500 font-medium">Mantener el coraje y la valentía frente a cualquier injusticia o adversidad.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-100 pt-4 text-center">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-600 font-bold text-[9px] uppercase tracking-wider border border-blue-100">
+                                <i class="fa-solid fa-award"></i> Academia Mungyeong
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="horarios" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs uppercase text-slate-500 font-extrabold tracking-widest">Planificá tu Semana</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 tracking-wider mt-2">HORARIO GENERAL</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-600 via-slate-300 to-blue-600 mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-500 mt-4 max-w-xl mx-auto text-sm font-medium">
+                    Horarios oficiales reales para nuestras disciplinas de acondicionamiento físico y artes marciales en Sede Boyacá.
+                </p>
+            </div>
+
+            <!-- Schedule Grid with text-based highlight cards, completely free of flyer images -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Highlight Cards (Left Side) -->
+                <div class="lg:col-span-4 flex flex-col gap-6">
+                    <!-- Functional Card -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 flex flex-col justify-between shadow-sm relative overflow-hidden group">
+                        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-red-500/5 rounded-full filter blur-xl group-hover:bg-red-500/10 transition-colors"></div>
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center border border-red-100">
+                                    <i class="fa-solid fa-dumbbell"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[9px] uppercase text-red-600 font-extrabold tracking-widest block">Entrenamiento</span>
+                                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">FUNCIONAL N. 1 & 2</h3>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 font-semibold leading-relaxed mb-4">
+                                Sesión intensiva diseñada para quemar grasa, ganar fuerza y acondicionar todo tu cuerpo con ejercicios dinámicos y adaptables.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-200/60 pt-4 flex justify-between items-center text-xs">
+                            <span class="font-bold text-slate-700">Martes y Jueves</span>
+                            <span class="text-red-600 font-black uppercase tracking-wider">20:30 a 21:30 hs</span>
+                        </div>
+                    </div>
+
+                    <!-- Yoga Card -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 flex flex-col justify-between shadow-sm relative overflow-hidden group">
+                        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-purple-500/5 rounded-full filter blur-xl group-hover:bg-purple-500/10 transition-colors"></div>
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center border border-purple-100">
+                                    <i class="fa-solid fa-spa"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[9px] uppercase text-purple-600 font-extrabold tracking-widest block">Bienestar</span>
+                                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">YOGA INTEGRAL</h3>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 font-semibold leading-relaxed mb-4">
+                                Trabajo de posturas (asanas), estiramiento y respiración profunda para aliviar la tensión diaria y mejorar tu elasticidad.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-200/60 pt-4 flex justify-between items-center text-xs">
+                            <span class="font-bold text-slate-700">Lunes, Miér. y Vier.</span>
+                            <span class="text-purple-600 font-black uppercase tracking-wider">09:00 a 10:00 hs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Timetable Board -->
+                <div class="lg:col-span-8 overflow-x-auto bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-md flex flex-col justify-between">
+                    <table class="w-full text-left border-collapse min-w-[500px]">
+                        <thead>
+                            <tr class="border-b border-slate-200 text-[10px] sm:text-xs uppercase tracking-widest text-slate-800 font-extrabold">
+                                <th class="py-4 px-3 w-28">Horas</th>
+                                <th class="py-4 px-3">Lunes</th>
+                                <th class="py-4 px-3">Martes</th>
+                                <th class="py-4 px-3">Miércoles</th>
+                                <th class="py-4 px-3">Jueves</th>
+                                <th class="py-4 px-3">Viernes</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-xs sm:text-sm font-medium text-slate-700">
+                            
+                            <!-- Row 1: Yoga -->
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="py-4 px-3 font-extrabold text-slate-900">09:00 - 10:00</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-purple-50 text-purple-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">Yoga</span>
+                                </td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-purple-50 text-purple-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">Yoga</span>
+                                </td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-purple-50 text-purple-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">Yoga</span>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2: Taekwondo WT Kids -->
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="py-4 px-3 font-extrabold text-slate-900">19:00 - 20:00</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-red-50 text-red-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">TKD WT (5 a 12 Años)</span>
+                                </td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-red-50 text-red-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">TKD WT (5 a 12 Años)</span>
+                                </td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-red-50 text-red-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">TKD WT (5 a 12 Años)</span>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3: Taekwondo WT Adults -->
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="py-4 px-3 font-extrabold text-slate-900">20:00 - 21:30</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-blue-50 text-blue-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">TKD WT (12+ Años)</span>
+                                </td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-blue-50 text-blue-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">TKD WT (12+ Años)</span>
+                                </td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-blue-50 text-blue-600 text-[10px] font-extrabold uppercase px-2 py-1 rounded">TKD WT (12+ Años)</span>
+                                </td>
+                            </tr>
+
+                            <!-- Row 4: Functional Only (From 20:30 to 21:30 based on 1000021483.jpg) -->
+                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                <td class="py-4 px-3 font-extrabold text-slate-900">20:30 - 21:30</td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-slate-900 text-white text-[10px] font-extrabold uppercase px-2 py-1 rounded">Funcional Nivel 1 & 2</span>
+                                </td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                                <td class="py-4 px-3">
+                                    <span class="inline-block bg-slate-900 text-white text-[10px] font-extrabold uppercase px-2 py-1 rounded">Funcional Nivel 1 & 2</span>
+                                </td>
+                                <td class="py-4 px-3 text-slate-300 italic text-xs">-</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nutricion" class="py-24 bg-slate-50 border-y border-slate-200/60 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column (Infographic element instead of flyer) -->
+                <div class="lg:col-span-5 order-2 lg:order-1 flex justify-center">
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-md max-w-sm w-full space-y-6">
+                        <div class="text-center border-b border-slate-100 pb-3">
+                            <span class="text-[10px] uppercase text-emerald-600 font-extrabold tracking-widest block mb-1">Métricas Clave</span>
+                            <h3 class="text-lg font-heading font-black text-slate-900 tracking-wider">¿QUÉ MEDIMOS?</h3>
+                        </div>
+                        
+                        <!-- Premium Progress Metrics Infographic -->
+                        <div class="space-y-4 font-bold text-xs uppercase tracking-wider text-slate-700">
+                            <div>
+                                <div class="flex justify-between mb-1.5">
+                                    <span>Masa Muscular</span>
+                                    <span class="text-emerald-600 font-extrabold">Aumento</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-emerald-500 h-full rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1.5">
+                                    <span>Grasa Corporal</span>
+                                    <span class="text-blue-600 font-extrabold">Descenso</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-blue-500 h-full rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1.5">
+                                    <span>Agua Corporal & Ósea</span>
+                                    <span class="text-purple-600 font-extrabold">Equilibrio</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-purple-500 h-full rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 text-center text-xs font-semibold text-slate-600">
+                            <i class="fa-solid fa-stethoscope text-emerald-600 mr-1.5 text-sm"></i>
+                            Tecnología de Bioimpedancia de alta precisión para un diagnóstico real.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column Content -->
+                <div class="lg:col-span-7 order-1 lg:order-2 space-y-6">
+                    <span class="text-xs uppercase text-red-600 font-extrabold tracking-widest">Salud & Bienestar</span>
+                    <h2 class="text-3xl sm:text-5xl font-heading font-black text-slate-900 tracking-wider">SCAN CORPORAL Y ACOMPAÑAMIENTO NUTRICIONAL</h2>
+                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
+                        En **C.I.A.F.** entendemos que el ejercicio físico y el arte marcial son solo una parte de tu desarrollo. Para ayudarte a alcanzar resultados verdaderos y sustentables, brindamos un servicio exclusivo de escaneo corporal y acompañamiento personalizado para complementar todas tus clases.
+                    </p>
+                    <div class="p-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-red-600 shrink-0 border border-slate-200">
+                            <i class="fa-solid fa-apple-whole text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">¿Por qué realizar el Acompañamiento Nutricional?</h4>
+                            <p class="text-slate-500 text-xs mt-1 leading-relaxed font-medium">
+                                Te permite conocer con exactitud tu progreso en masa muscular y grasa corporal, planificando la energía necesaria para rendir al máximo en Taekwondo WT, Taebo o Funcional.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-24 bg-white relative border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs uppercase text-slate-500 font-extrabold tracking-widest">Iniciá Hoy Mismo</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-900 tracking-wider mt-2">DÓNDE ESTAMOS Y CONTACTO</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-600 via-slate-300 to-blue-600 mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-500 mt-4 max-w-xl mx-auto text-sm font-medium">
+                    Vení a visitarnos o escribinos directamente por WhatsApp para coordinar tu primera clase. ¡Te esperamos!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Location Info -->
+                <div class="lg:col-span-6 bg-slate-50 p-8 rounded-2xl border border-slate-200 flex flex-col justify-between shadow-sm">
+                    <div>
+                        <span class="text-xs uppercase text-red-600 font-extrabold tracking-widest">Información de Sede</span>
+                        <h3 class="text-2xl font-heading font-black text-slate-900 tracking-wider mt-2">UBICACIÓN CENTRAL</h3>
+                        <div class="w-16 h-1 bg-red-600 mt-3 rounded-full"></div>
+                        
+                        <div class="mt-8 space-y-6">
+                            <!-- Location -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-600 shrink-0 shadow-sm">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-[10px] uppercase text-slate-400 tracking-wider font-extrabold">Dirección</h4>
+                                    <p class="text-sm text-slate-800 mt-1 font-bold">Boyacá 3167 (Entre Andonaegui y F. Lacroze)</p>
+                                    <p class="text-xs text-slate-500 font-semibold mt-0.5">Villa de Mayo, Buenos Aires, Argentina</p>
+                                </div>
+                            </div>
+
+                            <!-- Phone C.I.A.F. -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shrink-0 shadow-sm">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-[10px] uppercase text-slate-400 tracking-wider font-extrabold">WhatsApp C.I.A.F. General</h4>
+                                    <p class="text-sm text-slate-800 mt-1 font-bold">11 3671 5365</p>
+                                    <a href="https://wa.me/5491136715365" target="_blank" class="text-xs text-emerald-600 font-bold underline mt-1 block">Enviar Mensaje Directo</a>
+                                </div>
+                            </div>
+
+                            <!-- Phone Taekwondo WT -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-blue-600 shrink-0 shadow-sm">
+                                    <i class="fa-solid fa-user-ninja"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-[10px] uppercase text-slate-400 tracking-wider font-extrabold">Contacto Taekwondo (Mungyeong)</h4>
+                                    <p class="text-sm text-slate-800 mt-1 font-bold">11 5656 2843</p>
+                                    <a href="https://wa.me/5491156562843" target="_blank" class="text-xs text-blue-600 font-bold underline mt-1 block">Escribir por Taekwondo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Quick Actions -->
+                    <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row gap-4">
+                        <a href="https://wa.me/5491136715365" target="_blank" class="flex-1 text-center py-3.5 px-4 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp General
+                        </a>
+                        <a href="https://wa.me/5491156562843" target="_blank" class="flex-1 text-center py-3.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp Taekwondo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Google Maps Direction Section -->
+                <div class="lg:col-span-6 bg-slate-50 p-8 rounded-2xl border border-slate-200 flex flex-col justify-between shadow-sm relative overflow-hidden min-h-[300px]">
+                    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 50% 50%, #1e40af 0%, transparent 80%);"></div>
+                    
+                    <div class="relative z-10 text-center my-auto space-y-4">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto text-red-600 shadow-sm border border-red-200">
+                            <i class="fa-solid fa-map-location-dot text-2xl animate-bounce"></i>
+                        </div>
+                        <h4 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider">¿CÓMO ENCONTRARNOS?</h4>
+                        <p class="text-xs text-slate-500 max-w-sm mx-auto font-medium leading-relaxed">
+                            Nuestra sede se encuentra ubicada con excelente conectividad en Villa de Mayo (entre las calles Andonaegui y F. Lacroze).
+                        </p>
+                        
+                        <div class="pt-4">
+                            <a href="https://maps.google.com/?q=Boyaca+3167+Villa+de+Mayo" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-slate-900 text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-sm">
+                                <i class="fa-solid fa-route"></i> Ver en Google Maps
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 border-t border-slate-800 pt-16 pb-8 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Col 1: Brand description with original logo image -->
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-white p-0.5 overflow-hidden">
+                            <img src="1000021486.jpg" alt="Logo C.I.A.F." class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <div>
+                            <span class="font-heading text-lg font-black text-white block tracking-widest">C.I.A.F.</span>
+                            <span class="text-[7px] uppercase text-slate-400 tracking-[0.12em] block mt-0.5 font-bold">Centro Integral de Actividad Física</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 max-w-sm leading-relaxed mt-4 font-medium">
+                        Desde el entrenamiento físico adaptativo hasta disciplinas marciales de alto nivel. Mejorá tu calidad de vida de forma integral.
+                    </p>
+                    <div class="flex items-center gap-4 pt-4 text-slate-300">
+                        <a href="https://instagram.com/ciaf_3167_" target="_blank" class="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center hover:text-white hover:border-white transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/5491136715365" target="_blank" class="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center hover:text-white hover:border-white transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Useful Links -->
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-4">Actividades</h4>
+                    <ul class="space-y-2 text-slate-300 font-bold">
+                        <li><a href="#taekwondo" class="hover:text-red-500 transition-colors">Taekwondo WT</a></li>
+                        <li><a href="#actividades" class="hover:text-red-500 transition-colors">Yoga Integral</a></li>
+                        <li><a href="#actividades" class="hover:text-red-500 transition-colors">Funcional Nivel 1 & 2</a></li>
+                        <li><a href="#actividades" class="hover:text-red-500 transition-colors">Taebo & Aerolocal</a></li>
+                        <li><a href="#actividades" class="hover:text-red-500 transition-colors">Defensa Personal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: General information -->
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-4">Sede Central</h4>
+                    <p class="text-slate-300 leading-relaxed mb-4 font-bold">
+                        Boyacá 3167,<br>
+                        (Entre Andonaegui y F. Lacroze).
+                    </p>
+                    <p class="text-slate-300 leading-relaxed font-bold">
+                        Lunes a Viernes: 16:00 - 22:00 hs<br>
+                        Sábados: 09:00 - 13:00 hs
+                    </p>
+                </div>
+            </div>
+
+            <!-- Legal and copyright -->
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 font-medium">
+                <p>&copy; 2026 C.I.A.F. (Centro Integral de Actividad Física). Todos los derechos reservados.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Términos de Servicio</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-white transition-colors">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggling
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('mobile-close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        const closeMenu = () => {
+            mobileMenu.classList.add('translate-x-full');
+        };
+
+        closeBtn.addEventListener('click', closeMenu);
+        navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+        // Elegant Dynamic Navbar Scrolling behavior
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                header.classList.add('bg-white/95', 'shadow-md', 'py-1');
+            } else {
+                header.classList.remove('shadow-md', 'py-1');
+            }
+        });
+    </script>
+</body>
+</html>
